@@ -7,7 +7,8 @@ if(isset($_POST['target'])){
         case 6:
             $amt+=2;
         case 5:
-            $amt+=2;
+            $amt+=2;  // this is mainly used for the place the target place to drop
+                        // so for downwark the fllow will go and add 2 from ecah place toward down 
         case 4:
             $amt+=2;
         case 3:
@@ -24,7 +25,6 @@ if(isset($_POST['target'])){
 }
 
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -48,7 +48,7 @@ if(isset($_POST['target'])){
                             $st = $stops[$i];
 							$chk = '';
 							if(isset($t)){
-								if($t==$i)
+								if($t==$i)   // check the condition of the array apply in the selection of the target destination of the people 
 									$chk = 'selected';
 							}
                             echo "<option $chk value='$i'>$st</option>";
@@ -67,9 +67,7 @@ if(isset($_POST['target'])){
             <label>Total Amount </label> :<?php echo isset($total)?$total:'';?>
 			
 			<?php 
-			
 				$cat = array('SC', 'ST', 'OBC','SEBC', 'GENERAL');
-				
 			?>
 			<select>
 				<option value="">Select</option>
@@ -96,7 +94,6 @@ if(isset($_POST['target'])){
 						echo "<option value='$c'>$c</option>";
 				?>
 			</select>
-
         </div>
         <img width="50%" src="https://www.cmv360.com/_next/image?url=https%3A%2F%2Fs3.ap-southeast-1.amazonaws.com%2Fdelen%2Fuploads%2Fbf02079d-7953-4819-8c2a-2391572f8d0e-small-New%2520Project%2520%25281%2529.webp&w=384&q=100"/>
 
