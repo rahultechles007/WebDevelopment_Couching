@@ -26,6 +26,18 @@ function inputRadio($lab, $gene ,$values , $sel=''){ // to give the automaticall
         $str = toStr($gene);
         $opts ="<label> $lab </label>";
     
+        foreach($values as $v){                                                                          // RADIO AND CHECKBOX FUNCTION IS SAME  BOTH CONTENT SAME VAR ,LOGIC 
+            $s ='';  // blank to check below that any value has been priented or not 
+            if($v == $sel)
+                $s ='checked'; // to give the value automatically when it is refresh in the screen 
+            $opts.="<input $str $s value='$v'/>".ucfirst($v);
+        }
+        return $opts."<br>";
+}
+
+function inputcheck($lab, $gene ,$values , $sel=''){ // to give the automatically show the values 
+        $str = toStr($gene);
+        $opts ="<label> $lab </label>";                                                                     // RADIO AND CHECKBOX FUNCTION IS SAME  BOTH CONTENT SAME VAR ,LOGIC 
         foreach($values as $v){
             $s ='';  // blank to check below that any value has been priented or not 
             if($v == $sel)
@@ -41,7 +53,7 @@ function inputDrop($lab, $cata ,$values, $sel=' '){
     foreach($values as $v){
         $s = '';
         if($v == $sel)
-            $s = 'selected';
+            $s = 'selected';                                                                //SELECT AND OPTION  
         $opts .= "<option $s value='$v'/>".ucfirst($v)."</option>";
     }
     $opts .="</select>";
@@ -57,25 +69,28 @@ function inputDrop($lab, $cata ,$values, $sel=' '){
     <?php 
     // student name 
       $Sname = array('type'=>'text', 'name' => 'sname', 'class' =>'form-control', 'value' => '');// value is blank   
-        echo inputBox('Student Name', $Sname); // Expected type'string' | stringable | NULL found'void'
+        echo inputBox('Student Name', $Sname); // Expected type'string' | stringable | NULL found'void'   //'value' => 'Rahul kuamr '
 
         // age 
-        $sage = array('type'=>'text', 'name' => 'sage', 'class' =>'form-control', 'value' => '' );
+        $sage = array('type'=>'text', 'name' => 'sage', 'class' =>'form-control', 'value' => '' );// here we can input the value for the user respective . eg: 'value' => '25'
         echo inputBox('Student Age' , $sage);
 
         // radio for gender 
         $gender =array('male', 'female', 'other');
         $gene = array('type'=>'radio', 'name' => 'gen', 'class' =>'form-control');
-        echo inputRadio('Gender',$gene, $gender,'male');
+        echo inputRadio('Gender',$gene, $gender,'male'); // SEL VALUE IS GIVE 
         // checkBox of langauage 
+        $lan = array('odia','hindi','english');
+        $lana =array('type'=>'checkbox' ,'name'=>'lan[]','class'=>'form-control');
+        echo inputcheck('language',$lana, $lan ); /*array('odia', 'english')  due to this when the screen will refrash the checkbox automatically select the odia and endlish  */
         // Drop Down button 
          $cat = array('ST', 'SC', 'OBC', 'GENERAL', 'SEBC');
-         $cata = array('type'=>'text', 'name' => 'cat', 'class' =>'form-control' ); 
-         echo inputDrop('Category', $cata, $cat);
+         $cata = array('type'=>'text', 'name' => 'cat', 'class' =>'form-control'  ); 
+         echo inputDrop('Category', $cata, $cat /* 'SEBC'*/ ); // OPTIONAL CODE FOR SELECT 
          //Textarea 
          $txt = array('rows'=> 6, 'cols' =>40, 'name' => 'addeass', 'class ' => 'form-control');
          $v = 'Plot no-389 , Bjb Nagar Bhubaneswar';
-         echo inputTextarea('Address', $txt , $v);
+         echo inputTextarea('Address', $txt , $v );
         // submit button 
         $sub = array('type'=>'submit', 'name' => 'sub', 'class' =>'form-control', 'value' => 'Register');
         echo inputBox('&nbsp;', $sub);
