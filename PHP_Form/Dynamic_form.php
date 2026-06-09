@@ -89,15 +89,17 @@ function inputDrop($lab, $cata ,$values, $sel=' '){
     <h1> Registration Form </h1>
     <form action="" method="post">
         <?php 
-        $mom = array('type' => 'text', 'name' =>'', 'class'=>'form-control', 'value' =>'');
+        $momo = array('type' => 'text', 'name' =>'', 'class'=>'form-control', 'value' =>'');
         
-        $mom['name']='$name';
-        $mom['value'] = "Rahul kumar";
-        echo inputBox('Student name', $mom);
+        $momo['name']='$name';
+        $momo['value'] = "Rahul kumar";
+        echo inputBox('Student name', $momo);
 
-        $mom['name']='age';
-        $mom['value'] ="22";
-        echo inputBox('Student Age',$mom);
+        $momo['name']='age';
+        $momo['value'] ="22";
+        echo inputBox('Student Age',$momo);
+
+        $momo['name'] ='gender'
 
         ?>
     </form>

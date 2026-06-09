@@ -68,7 +68,7 @@ function inputDrop($lab, $cata ,$values, $sel=' '){
 <form action="" method="post">
     <?php 
     // student name 
-      $Sname = array('type'=>'text', 'name' => 'sname', 'class' =>'form-control', 'value' => '');// value is blank   
+       $Sname = array('type'=>'text', 'name' => 'sname', 'class' =>'form-control', 'value' => '');// value is blank   
         echo inputBox('Student Name', $Sname); // Expected type'string' | stringable | NULL found'void'   //'value' => 'Rahul kuamr '
 
         // age 
