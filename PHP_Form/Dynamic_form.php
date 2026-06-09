@@ -95,11 +95,20 @@ function inputDrop($lab, $cata ,$values, $sel=' '){
         $momo['value'] = "Rahul kumar";
         echo inputBox('Student name', $momo);
 
-        $momo['name']='age';
+        $momo['name']='$age';
         $momo['value'] ="22";
         echo inputBox('Student Age',$momo);
 
-        $momo['name'] ='gender'
+        $momo['type'] ='radio';
+        $gene = array('male','female','other');
+        echo inputRadio('Gender', $momo, $gene, );// other , or other can be also selected 
+
+        $momo['type'] ='checkbox';
+        $momo['name'] ='lan[]';
+        $lan = array('odia','hindi','english');
+        echo inputcheck('Language', $momo, $lan);
+
+        
 
         ?>
     </form>
