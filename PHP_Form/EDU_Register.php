@@ -108,7 +108,7 @@ echo inputBox('Telephone No', $phone);
 $dob = array('type' => 'date','name' => 'dob','class' => 'form-control');
 echo inputBox('Date of Birth', $dob);
 
- $txt = array('rows'=> 6, 'cols' =>40, 'name' => 'addeass', 'class ' => 'form-control');
+ $txt = array('rows'=> 6, 'cols' =>40, 'name' => 'address', 'class ' => 'form-control');
 //  $v = 'Plot no-389 , Bjb Nagar Bhubaneswar';
  echo inputTextarea('Address', $txt  ); //, $v
 
