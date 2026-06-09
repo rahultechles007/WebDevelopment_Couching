@@ -1,5 +1,23 @@
 <?php 
-// 
+$host= '127.0.0.1:3307';
+$user ='root';
+$psw ='';
+$db='edutech_management';
+
+
+
+
+
+
+
+
+
+// Here are the same function of the register form generator
+
+
+
+
+
 function toStr($demos=array()){
     $str ='';                       // This is mainly used to convert An array into a string 
     foreach ($demos as $k=>$v){
