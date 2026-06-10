@@ -3,19 +3,14 @@ $host= '127.0.0.1:3307';
 $user ='root';
 $psw ='';
 $db='edutech_management';
+$ref = mysqli_connect($host, $user , $psw , $db);
 
-
-
-
-
-
-
+if(!$ref)
+    echo "connection is failed".mysqli_connect_error();
+//echo"the connection is successfull";
 
 
 // Here are the same function of the register form generator
-
-
-
 
 
 function toStr($demos=array()){
@@ -28,18 +23,18 @@ function toStr($demos=array()){
 }
 function inputBox($lab, $demos=array()){
     $str = toStr($demos);
-     return "<label> $lab </label><input $str> <br>";
+     return "<label class='form-control'> $lab </label><input $str> <br>";
 
 } 
 
 function inputTextarea($label , $demos=array() , $value=''){
     $str =toStr($demos);
-    return "<label>$label</label><textarea $str >$value </textarea><br>";
+    return "<label class='form-control'>$label</label><textarea $str >$value </textarea><br>";
 }
 
 function inputRadio($lab, $gene ,$values , $sel=''){ // to give the automatically show the values 
         $str = toStr($gene);
-        $opts ="<label> $lab </label>";
+        $opts ="<label class='form-control'> $lab </label>";
     
         foreach($values as $v){                                                                          // RADIO AND CHECKBOX FUNCTION IS SAME  BOTH CONTENT SAME VAR ,LOGIC 
             $s ='';  // blank to check below that any value has been priented or not 
@@ -52,7 +47,7 @@ function inputRadio($lab, $gene ,$values , $sel=''){ // to give the automaticall
 
 function inputcheck($lab, $gene ,$values , $sel=''){ // to give the automatically show the values 
         $str = toStr($gene);
-        $opts ="<label> $lab </label>";                                                                     // RADIO AND CHECKBOX FUNCTION IS SAME  BOTH CONTENT SAME VAR ,LOGIC 
+        $opts ="<label class='form-control'> $lab </label>";                                                                     // RADIO AND CHECKBOX FUNCTION IS SAME  BOTH CONTENT SAME VAR ,LOGIC 
         foreach($values as $v){
             $s ='';  // blank to check below that any value has been priented or not 
             if($v == $sel)
@@ -64,7 +59,7 @@ function inputcheck($lab, $gene ,$values , $sel=''){ // to give the automaticall
 
 function inputDrop($lab, $cata ,$values, $sel=' '){
     $str =toStr($cata);
-    $opts = "<label>$lab</label> <select $str><option value=''>Select</option>";
+    $opts = "<label class='form-control'>$lab</label> <select $str><option value=''>Select</option>";
     foreach($values as $v){
         $s = '';
         if($v == $sel)
@@ -75,90 +70,136 @@ function inputDrop($lab, $cata ,$values, $sel=' '){
     return $opts . "<br>";
 }
 
+//insert of data in the database to check the condition 
+if(isset($_POST['sub'])){
+    extract($_POST);
 
+    $table ="candidate";
 
+$qry="INSERT INTO $table (name,father,mother,gender,emailid,mobile,dob,address,passingyear,coursetype,coursename) VALUES ('$sname','$fname','$mname','$gen','$email','$phone','$dob','$address','$passing_year','$course_type','$course_name')";
+mysqli_query($ref,$qry);
 
+echo"Data has been saved ";
+}
 ?>
-<div>
-<form action="" method="get">
-   <h2> Registration form </h2> 
-<?php 
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
 
+<body>
+    
 
-$sname = array('type' => 'text','name' => 'sname','class' => 'form-control');
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+
+            <div class="card shadow-lg border-0 rounded-4">
+                <div class="card-header bg-primary text-white text-center py-3">
+                    <h2 class="mb-0">Registration Form</h2>
+                </div>
+
+                <div class="card-body p-4">
+
+                    <form action="" method="post">
+
+<?php
+
+$sname = array(
+    'type' => 'text',
+    'name' => 'sname',
+   
+);
 echo inputBox('Student Name', $sname);
 
-$fname = array('type' => 'text','name' => 'fname','class' => 'form-control');
+$fname = array(
+    'type' => 'text',
+    'name' => 'fname',
+);
 echo inputBox('Father Name', $fname);
 
-$mname = array('type' => 'text','name' => 'mname','class' => 'form-control');
+$mname = array(
+    'type' => 'text',
+    'name' => 'mname',
+   
+);
 echo inputBox('Mother Name', $mname);
 
-$gender =array('male', 'female', 'other');
-$gene = array('type'=>'radio', 'name' => 'gen', 'class' =>'form-control');
-echo inputRadio('Gender',$gene, $gender,'male');
+$gender = array('male', 'female', 'other');
+$gene = array(
+    'type' => 'radio',
+    'name' => 'gen'
+);
+echo inputRadio('Gender', $gene, $gender, 'male');
 
-
-$email = array('type' => 'email','name' => 'email','class' => 'form-control');
+$email = array(
+    'type' => 'email',
+    'name' => 'email',
+    
+);
 echo inputBox('Email', $email);
 
-$phone = array( 'type' => 'tel','name' => 'phone','class' => 'form-control');
+$phone = array(
+    'type' => 'tel',
+    'name' => 'phone',
+    
+);
 echo inputBox('Telephone No', $phone);
 
-$dob = array('type' => 'date','name' => 'dob','class' => 'form-control');
+$dob = array(
+    'type' => 'date',
+    'name' => 'dob',
+    
+);
 echo inputBox('Date of Birth', $dob);
 
- $txt = array('rows'=> 6, 'cols' =>40, 'name' => 'address', 'class ' => 'form-control');
-//  $v = 'Plot no-389 , Bjb Nagar Bhubaneswar';
- echo inputTextarea('Address', $txt  ); //, $v
+$txt = array(
+    'rows' => 6,
+    'cols' => 40,
+    'name' => 'address',
+   
+);
+echo inputTextarea('Address', $txt);
 
-$years = array('2026','2025','2024','2023','2022','2021', '2020');
-$yearAttr = array('name' => 'passing_year','class' => 'form-control');
+$years = array('2026','2025','2024','2023','2022','2021','2020');
+$yearAttr = array(
+    'name' => 'passing_year',
+    
+);
 echo inputDrop('Passing Year', $yearAttr, $years);
 
 $courseType = array('UG','PG','Diploma','Certificate');
-$typeAttr = array('name' => 'course_type','class' => 'form-control');
+$typeAttr = array(
+    'name' => 'course_type',
+   
+);
 echo inputDrop('Course Type', $typeAttr, $courseType);
 
 $courseName = array('BCA','BSc','BCom','BA','MCA','MSc','MBA','Computer Science');
-$courseAttr = array('name' => 'course_name','class' => 'form-control');
+$courseAttr = array(
+    'name' => 'course_name',
+    
+);
 echo inputDrop('Course Name', $courseAttr, $courseName);
 
-$sub = array('type'=>'submit', 'name' => 'sub', 'class' =>'form-control', 'value' => 'Register');
-echo inputBox('&nbsp;', $sub);
-
 ?>
-</form>
+
+<div class="d-grid mt-4">
+ <?php 
+     $sub = array('type'=>'submit', 'name' => 'sub', 'class' =>'btn btn-primary btn-lg ', 'value' => 'Register');
+        echo inputBox('&nbsp;', $sub);
+        
+    ?>
 </div>
 
+                    </form>
 
-<style>
-    label {
-        line-height: 10px;
-        width :130px;
-        display:inline-block;
-        vertical-align:top;
-         margin-bottom:15px;
-         margin-left:20px;
-    }
-    
-    div {
-            margin:auto;
-            width: 400px;
-            height:500px;
-            border:3px solid black;
-            padding: 10px;
-            box-shadow: 30px black;
-            
-    }
-    h2{
-         text-align: center; 
-          margin-bottom:20px;
-    }
-    input[text]{
-        font-size: 3px;
-        font-weight: bold;
-    }
-    
+                </div>
+            </div>
 
-</style>
+        </div>
+    </div>
+</div>
+                    
+</body>
+
+
