@@ -1,4 +1,10 @@
 <?php
+if(isset($_GET['id']))
+    $id =$_GET['id'];
+else                                               // this condition is mainly used for checking if someone click to edit and id is there or not 
+    header("location:voterlist.php");
+
+
 $host ='127.0.0.1:3307';
 $user ='root';
 $psw ='';
@@ -8,17 +14,22 @@ $ref =mysqli_connect($host, $user,$psw,$db);
 if(!$ref)
     echo "connection failed ".mysqli_connect_error();
 
+// TO get the student data for the database
+$qry ="SELECT * FROM voterlists WHERE id=$id ";
+$data = mysqli_query($ref ,$qry );
+$row = mysqli_fetch_assoc($data);     // this is mainly use to fetch the data in var $row in row wise 
+if(empty($row))                    // this condition is used to check the $row  of data is not empty 
+    header("Location:voterlist.php");   // this is locate the data in the details for data in this sequence order 
+
 if(isset($_POST['sub'])){
     extract($_POST);
     $table ='voterlists'; 
-    $qry = "INSERT INTO  $table (name,age) VALUES ('$voter_name', '$age')";
+    $qry = "UPDATE  $table SET name='$voter_name',age='$age' WHERE id=$id"; // here we updata the by giving the field name and table feild name
     mysqli_query($ref, $qry);
 
-    header("Location:voter.php?str=1"); // error is heree
 
+    header("Location:voterlist.php?str=1"); // voterlist is used to see and modify the data 
 }
-
-
 ?>
 
 
@@ -71,31 +82,29 @@ if(isset($_POST['sub'])){
         </div>
 
         <div class="card-body">
-            <form action="<?php echo  $_SERVER['PHP_SELF']?>" method="post">
-                <?php
+            <form action="<?php echo  $_SERVER['PHP_SELF']?>?id=<?= $id?>" method="post">
+                <?php                                  // this is must important part after updata occurs final implement 
                 if(isset($_GET['str'])){
                     $n =$_GET['str'];
                     if($n == 1)
                         echo "<p> data saved sucessfully </p>";
-                }
+                  }
                     ?>
 
                 <div class="mb-3">
                     <label class="form-label">Voter Name</label>
-                    <input type="text" class="form-control" name="voter_name" placeholder="Enter Voter Name" required>
+                    <input type="text" class="form-control" value="<?= $row['name'];?>" name="voter_name" placeholder="Enter Voter Name" required>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Age</label>
-                    <input type="number" class="form-control" name="age" placeholder="Enter Age" required>
-                </div>
+                    <input type="number" class="form-control" name="age" value="<?= $row['age']; ?>" placeholder="Enter Age" required>
+                </div>                                                          <!-- it is the shortout methods without writing echo -->
 
                 <div class="text-center">
-                    <a href="update.php?id=<?php echo $row['id']; ?>">
-                        <button type="submit" name="sub" class="btn btn-primary">
-                        Submit
+                    <button type="submit" name="sub" class="btn btn-primary">
+                        saved data
                     </button>
-                    </a>
                     <button type="reset" class="btn btn-danger">
                         Reset
                     </button>

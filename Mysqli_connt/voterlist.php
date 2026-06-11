@@ -3,14 +3,11 @@ $host ='127.0.0.1:3307';
 $user ='root';
 $psw ='';
 $db ='voter_management';
-$ref =mysqli_connect($host, $user,$psw,$db);
+$ref = mysqli_connect($host, $user, $psw, $db);
 
 if(!$ref)
     echo "connection failed ".mysqli_connect_error();
 // echo "connection done";
-
-
-
 ?>
 
 <!DOCTYPE html>
@@ -52,25 +49,37 @@ if(!$ref)
                         <th>Sr No</th>
                         <th>Voter Name</th>
                         <th>Age</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
 
                 <tbody>
                     <?php
                     $qry = "SELECT * FROM voterlists";
-                    $data =mysqli_query($ref ,$qry);
-                    while($row =mysqli_fetch_assoc($data)){
+                    $data = mysqli_query($ref, $qry);
+
+                    while($row = mysqli_fetch_assoc($data)){
                     ?>
                     <tr>
-                        <td>1</td>
-                        <td><?php echo $row['id']  ?></td>
-                        <td><?php echo $row['name']  ?></td>
-                        <td><?php echo $row['age']  ?></td>
-                        
+                        <td><?php echo $row['id']; ?></td>
+                        <td><?php echo $row['name']; ?></td>
+                        <td><?php echo $row['age']; ?></td>
+
+                        <td>
+                            <a href="update.php?id=<?php echo $row['id'];?>" class="btn btn-warning btn-sm">
+                                Edit
+                            </a>
+
+                            <a href="delete.php?id=<?php echo $row['id']; ?>"
+                               class="btn btn-danger btn-sm"
+                               onclick="return confirm('Are you sure you want to delete this voter?');">
+                                Delete
+                            </a>
+                        </td>
                     </tr>
-                    <?php 
+                    <?php
                     }
-                     ?>
+                    ?>
                 </tbody>
 
             </table>
