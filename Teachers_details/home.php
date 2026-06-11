@@ -7,6 +7,18 @@ $conn = mysqli_connect($host,$user,$psw,$db);
 if(!$conn)
     echo "connection error".mysqli_connect_error();
 // echo "connection successfull";
+
+
+if (isset($_POST['sub'])){
+    extract($_POST);
+    $table ='teacher_details';
+    $qry = "INSERT INTO $table (teacher_name, age , gender, specialization , address, mobile, qualification ) VALUES ('$name','$age','$gender', '$specialization','$address', '$mobile' , '$qualification')";
+    mysqli_query($conn,$qry);
+
+    header("location:home.php?str=1"); 
+    
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -81,7 +93,14 @@ if(!$conn)
 
             <div class="card-body bg-white">
 
-                <form method="post">
+                <form method="post" action="<?php echo $_SERVER['PHP_SELF']?>">
+                    <?php 
+                    if(isset($_GET['str'])){
+                        $n = $_GET['str'];
+                        if($n == 1)
+                            echo "<p> Data saved successfully </p>";
+                    }
+                    ?>
 
                     <div class="mb-3">
                         <label class="form-label">Teacher Name</label>
@@ -97,26 +116,17 @@ if(!$conn)
                         <label class="form-label d-block">Gender</label>
 
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input"
-                                   type="radio"
-                                   name="gender"
-                                   value="Male">
+                            <input class="form-check-input" type="radio" name="gender"value="Male">
                             <label class="form-check-label">Male</label>
                         </div>
 
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input"
-                                   type="radio"
-                                   name="gender"
-                                   value="Female">
+                            <input class="form-check-input" type="radio" name="gender"  value="Female">
                             <label class="form-check-label">Female</label>
                         </div>
 
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input"
-                                   type="radio"
-                                   name="gender"
-                                   value="Other">
+                            <input class="form-check-input"  type="radio" name="gender" value="Other">
                             <label class="form-check-label">Other</label>
                         </div>
                     </div>
@@ -138,17 +148,12 @@ if(!$conn)
 
                     <div class="mb-3">
                         <label class="form-label">Address</label>
-                        <textarea class="form-control"
-                                  name="address"
-                                  rows="3"></textarea>
+                        <textarea class="form-control"name="address"rows="3"></textarea>
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label">Mobile Number</label>
-                        <input type="tel"
-                               class="form-control"
-                               name="mobile"
-                               maxlength="10">
+                        <input type="tel"class="form-control"name="mobile"maxlength="10">
                     </div>
 
                     <div class="mb-3">
@@ -167,7 +172,7 @@ if(!$conn)
                     </div>
 
                     <div class="text-center">
-                        <button type="submit" class="btn btn-custom px-4">
+                        <button type="submit" name="sub" class="btn btn-custom px-4">
                             Register
                         </button>
 

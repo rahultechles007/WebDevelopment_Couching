@@ -8,7 +8,7 @@ $ref =mysqli_connect($host, $user,$psw,$db);
 if(!$ref)
     echo "connection failed ".mysqli_connect_error();
 
-if(isset($_POST['sub'])){
+if(isset($_POST['sub'])){   // this condition mainly used to make the DB INSERT the data in database 
     extract($_POST);
     $table ='voterlists'; 
     $qry = "INSERT INTO  $table (name,age) VALUES ('$voter_name', '$age')";
@@ -75,7 +75,7 @@ if(isset($_POST['sub'])){
                 <?php
                 if(isset($_GET['str'])){
                     $n =$_GET['str'];
-                    if($n == 1)
+                    if($n == 1)             // to refresh the page but a user a enter in str=1 only one time 
                         echo "<p> data saved sucessfully </p>";
                 }
                     ?>
