@@ -1,6 +1,13 @@
-
-
-
+<?php 
+$host ="127.0.0.1:3307";
+$user ="root";
+$psw ="";
+$db ="teacher_management";
+$conn = mysqli_connect($host,$user,$psw,$db);
+if(!$conn)
+    echo "connection failed".mysqli_connect_error();
+// echo "successfully connected ";
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -86,25 +93,34 @@
                         </thead>
 
                         <tbody>
-
+                            <?php 
+                            $qry = "SELECT * FROM teacher_details";
+                            $data =mysqli_query($conn,$qry);
+                            while($row =mysqli_fetch_assoc($data)){
+                            ?>
                             <tr>
-                                <td>1</td>
-                                <td>Rahul Sharma</td>
-                                <td>35</td>
-                                <td>Male</td>
-                                <td>Mathematics</td>
-                                <td>Mumbai</td>
-                                <td>9876543210</td>
-                                <td>M.Sc.</td>
+                                <td><?php echo $row['id'];?></td>
+                                <td><?php echo $row['teacher_name'];?></td>
+                                <td><?php echo $row['age'];?></td>
+                                <td><?php echo $row['gender'];?></td>
+                                <td><?php echo $row['specialization'];?></td>
+                                <td><?php echo $row['address'];?></td>
+                                <td><?php echo $row['mobile'];?></td>
+                                <td><?php echo $row['qualification'];?></td>
                                 <td>
-                                    <button class="btn btn-warning btn-sm btn-action">
+                                    <a href="update.php?id=<?php echo $row['id'];?>">
+                                        <button class="btn btn-warning btn-sm btn-action">
                                         Edit
                                     </button>
+                                    </a>
                                     <button class="btn btn-danger btn-sm btn-action">
                                         Delete
                                     </button>
                                 </td>
                             </tr>
+                            <?php 
+                            }
+                            ?>
                         </tbody>
 
                     </table>
@@ -112,7 +128,7 @@
                 </div>
 
                 <div class="mt-3 text-start">
-                    <a href="teacher.html" class="btn btn-primary">
+                    <a href="home.php" class="btn btn-primary">
                         Add New Teacher
                     </a>
                 </div>

@@ -58,7 +58,7 @@ if(!$ref)
                     $qry = "SELECT * FROM voterlists";
                     $data = mysqli_query($ref, $qry);
 
-                    while($row = mysqli_fetch_assoc($data)){
+                    while($row = mysqli_fetch_assoc($data)){   ///this important to fetch the data and display in the screen 
                     ?>
                     <tr>
                         <td><?php echo $row['id']; ?></td>

@@ -59,6 +59,11 @@ if (isset($_POST['sub'])){
             max-width:700px;
             margin:auto;
         }
+        p{
+            text-align: center;
+            color: green;
+            font-family: 'Times New Roman', Times, serif;
+        }
     </style>
 </head>
 
