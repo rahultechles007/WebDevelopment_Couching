@@ -1,6 +1,6 @@
 <?php
 if(isset($_GET['id']))
-    $id =$_GET['id'];
+    $id =$_GET['id'];    // step 1
 else                                               // this condition is mainly used for checking if someone click to edit and id is there or not 
     header("location:voterlist.php");
 
@@ -16,7 +16,7 @@ if(!$ref)
 
 // TO get the student data for the database
 $qry ="SELECT * FROM voterlists WHERE id=$id ";
-$data = mysqli_query($ref ,$qry );
+$data = mysqli_query($ref ,$qry );        // step 2 
 $row = mysqli_fetch_assoc($data);     // this is mainly use to fetch the data in var $row in row wise 
 if(empty($row))                    // this condition is used to check the $row  of data is not empty 
     header("Location:voterlist.php");   // this is locate the data in the details for data in this sequence order 
@@ -93,7 +93,7 @@ if(isset($_POST['sub'])){
 
                 <div class="mb-3">
                     <label class="form-label">Voter Name</label>
-                    <input type="text" class="form-control" value="<?= $row['name'];?>" name="voter_name" placeholder="Enter Voter Name" required>
+                    <input type="text" class="form-control" value="<?= $row['name'];?>" name="voter_name" placeholder="Enter Voter Name" required> <!--  the values is form database name made by table -->
                 </div>
 
                 <div class="mb-3">
