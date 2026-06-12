@@ -129,8 +129,7 @@ if(isset($_POST['sub'])){
 
                                 echo "
                                 <div class='form-check form-check-inline'>
-                                    <input class='form-check-input'
-                                        type='radio'
+                                    <input class='form-check-input type='radio'
                                         name='gender'
                                         value='$gender'
                                         $checked>
